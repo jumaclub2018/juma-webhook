@@ -47,12 +47,7 @@ def tilda():
     hall = normalize_hall(hall_raw)
 
     # Формат который парсит @Juma2018_bot
-    msg = (
-        "Request details:\n"
-        "Phone: " + phone + "\n"
-        "name: " + name + "\n"
-        "Где_хотите_заниматься: " + hall
-    )
+    msg = "Request details:\nPhone: " + phone + "\nname: " + name + "\nГде_хотите_заниматься: " + hall
 
     try:
         url = "https://api.telegram.org/bot" + TRAINER_BOT_TOKEN + "/sendMessage"
