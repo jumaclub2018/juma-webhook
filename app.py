@@ -1,4 +1,4 @@
-import os, requests, json, logging
+import os, requests, logging
 from flask import Flask, request
 
 logging.basicConfig(level=logging.INFO)
@@ -37,24 +37,24 @@ def tilda():
     all_data = {**form_data, **args_data, **json_data}
     logging.info("Tilda data: %s", all_data)
 
-    # Тестовый запрос от Tilda — игнорируем
+    # Тестовый запрос — игнорируем
     if all_data == {"test": "test"} or not all_data.get("Phone"):
         return "ok", 200
 
-    phone = all_data.get("Phone", "Не указан")
-    name = all_data.get("name", "Не указано")
-    hall_raw = all_data.get("Где_хотите_заниматься", "Не указан")
-    hall = normalize_hall(hall_raw)
+    phone = all_data.get("Phone", "Не указан").strip()
+    name = all_data.get("name", "Не указано").strip()
+    hall_raw = all_data.get("Где_хотите_заниматься", "")
+    hall = normalize_hall(hall_raw) or hall_raw or "Не указан"
 
-    # Формат который парсит @Juma2018_bot
-    msg = "Request details:\nPhone: " + phone + "\nname: " + name + "\nГде_хотите_заниматься: " + hall
+    # Отправляем с явными переносами \n
+    msg = "Request details:\nPhone: {}\nname: {}\nГде_хотите_заниматься: {}".format(phone, name, hall)
 
     try:
         url = "https://api.telegram.org/bot" + TRAINER_BOT_TOKEN + "/sendMessage"
         resp = requests.post(url, json={"chat_id": ADMIN_ID, "text": msg}, timeout=10)
-        logging.info("Telegram response: %s", resp.status_code)
+        logging.info("Telegram: %s", resp.status_code)
     except Exception as e:
-        logging.error("Telegram error: %s", e)
+        logging.error("Error: %s", e)
 
     return "ok", 200
 
