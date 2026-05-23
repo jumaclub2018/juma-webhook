@@ -48,7 +48,7 @@ def tilda():
 
     # Формат который парсит @Juma2018_bot
     msg = (
-        "Request details:"
+        "Request details:\n"
         "Phone: " + phone + "\n"
         "name: " + name + "\n"
         "Где_хотите_заниматься: " + hall
