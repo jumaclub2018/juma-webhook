@@ -47,7 +47,7 @@ def tilda():
     hall = normalize_hall(hall_raw) or hall_raw or "Не указан"
 
     # Отправляем с явными переносами \n
-    msg = "Request details:\nPhone: {}\nname: {}\nГде_хотите_заниматься: {}".format(phone, name, hall)
+    msg = "TILDA_LEAD|{}|{}|{}".format(name, phone, hall)
 
     try:
         url = "https://api.telegram.org/bot" + TRAINER_BOT_TOKEN + "/sendMessage"
