@@ -41,7 +41,7 @@ def tilda():
     if all_data == {"test": "test"} or not all_data.get("Phone"):
         return "ok", 200
 
-    phone = all_data.get("Phone", "Не указан").strip()
+    phone = all_data.get("Phone", "Не указан").strip().replace(" ", "").replace("(", "").replace(")", "").replace("-", "")
     name = all_data.get("name", "Не указано").strip()
     hall_raw = all_data.get("Где_хотите_заниматься", "")
     hall = normalize_hall(hall_raw) or hall_raw or "Не указан"
