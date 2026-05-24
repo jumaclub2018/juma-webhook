@@ -51,7 +51,9 @@ def tilda():
     hall = normalize_hall(hall_raw) or hall_raw or "Не указан"
 
     # Отправляем с явными переносами \n
-    msg = "TILDA_LEAD|{}|{}|{}".format(name, phone, hall)
+    # Убираем + чтобы Telegram не делал tel: ссылку
+    phone_clean = phone.replace("+", "").replace(" ", "").replace("(", "").replace(")", "").replace("-", "")
+    msg = "TILDA_LEAD|{}|{}|{}".format(name, phone_clean, hall)
 
     try:
         url = "https://api.telegram.org/bot" + TRAINER_BOT_TOKEN + "/sendMessage"
